@@ -10,7 +10,7 @@ jobs:
         steps:
             - uses: actions/checkout@master
             - uses: actions/setup-node@master
-            with:
+            - with:
                 node-version: 14
                 registry-url: https://registry.npmjs.org/
             - run: npm install
