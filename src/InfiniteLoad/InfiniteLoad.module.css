@@ -1,0 +1,11 @@
+.Content {
+    flex-direction: column;
+    justify-items: center;
+}
+
+@media (min-width: 700px){
+    .Content {
+        flex-direction: column;
+        overflow: hidden;
+    }
+}
