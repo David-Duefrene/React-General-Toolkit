@@ -11,9 +11,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "react-scripts": "^3.4.3",
+    "@babel/cli": "^7.11.6",
+    "@babel/preset-react": "^7.10.4"
+  },
+  "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-dom": "^16.13.1"
   },
   "scripts": {
     "build": "rimraf dist && mkdir dist &&  babel ./src -d dist --copy-files",
@@ -34,9 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/preset-react": "^7.10.4"
   }
 }
