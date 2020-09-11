@@ -2,7 +2,7 @@ name: npm-publish
 on:
     push:
         branches:
-            - master # Change this to your default branch
+            - master
 jobs:
     npm-publish:
         name: npm-publish
@@ -10,11 +10,11 @@ jobs:
         steps:
             - uses: actions/checkout@master
             - uses: actions/setup-node@master
-            - with:
+              with:
                 node-version: 14
                 registry-url: https://registry.npmjs.org/
             - run: npm install
             - run: npm publish --access public
-            env: # More info about the environment variables in the README
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
-                NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
