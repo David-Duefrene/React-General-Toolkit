@@ -7,10 +7,29 @@ import CSS from './InfiniteLoad.module.css';
  * Displays a infinite scroll object
  * @extends Component
  * @param {func} loadMore The function to load more items
- * @param {list} objects The objects that is being displayed
+ * @param {list} objects The list of objects that is being displayed
+ * @param {bool} useButtons If a button should be displayed
+ * @param {element} button The button to be displayed
  */
 const InfiniteLoad = (props) => {
-    const { objects, loadMore } = props;
+    const {
+        objects, loadMore, useButtons, button,
+    } = props;
+
+    if (useButtons) {
+        return (
+            <div className={CSS.Content}>
+                <ul>
+                    {objects}
+                </ul>
+                {
+                    button === null
+                        ? <button type='button' onClick={loadMore}>Load more</button>
+                        : button
+                }
+            </div>
+        );
+    }
 
     const handleScroll = () => {
         const lastLi = document.querySelector(`div > div.${CSS.Content}`);
@@ -29,8 +48,15 @@ const InfiniteLoad = (props) => {
 };
 
 InfiniteLoad.propTypes = {
-    objects: PropTypes.arrayOf(PropTypes.element).isRequired,
     loadMore: PropTypes.func.isRequired,
+    objects: PropTypes.arrayOf(PropTypes.element).isRequired,
+    useButtons: PropTypes.bool,
+    button: PropTypes.element,
+};
+
+InfiniteLoad.defaultProps = {
+    useButtons: false,
+    button: null,
 };
 
 export default InfiniteLoad;

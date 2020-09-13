@@ -5,5 +5,7 @@ test:
     stage: test
     image: "node:14.8"
     script:
-    - npm install
+    - npm install --silent
+    - npm i --silent react@16.13.1
+    - npm i --silent react-dom@16.13.1
     - npm test
