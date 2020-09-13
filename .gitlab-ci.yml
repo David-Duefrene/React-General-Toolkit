@@ -2,7 +2,7 @@ stages:
     - test
 
 test:
-    stage: test-frontend
+    stage: test
     image: "node:14.8"
     script:
     - npm install
