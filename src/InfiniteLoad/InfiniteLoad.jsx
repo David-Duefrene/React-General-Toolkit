@@ -29,7 +29,7 @@ const InfiniteLoad = (props) => {
 };
 
 InfiniteLoad.propTypes = {
-    objects: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    objects: PropTypes.arrayOf(PropTypes.element).isRequired,
     loadMore: PropTypes.func.isRequired,
 };
 
