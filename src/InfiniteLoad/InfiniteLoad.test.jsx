@@ -82,6 +82,36 @@ describe('<InfiniteLoad /> with custom button', () => {
     it('should trigger loadMore if button is pressed', () => {
         const button = wrapper.find('h2');
         button.simulate('click');
-        // expect(mockLoadMore.mock.calls.length).toBe(1);
+        expect(mockLoadMore.mock.calls.length).toBe(1);
+    });
+});
+
+describe('<InfiniteLoad /> should work horizontal', () => {
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = shallow(
+            <InfiniteLoad
+                loadMore={mockLoadMore}
+                objects={objects}
+                useButtons
+                horizontal
+            />,
+        );
+    });
+
+    afterEach(() => {
+        mockLoadMore.mockClear();
+    });
+
+    it('should show custom button if button is provided', () => {
+        const button = wrapper.find('h1');
+        expect(button).toHaveLength(3);
+    });
+
+    it('should trigger loadMore if button is pressed', () => {
+        const button = wrapper.find('button');
+        button.simulate('click');
+        expect(mockLoadMore.mock.calls.length).toBe(1);
     });
 });

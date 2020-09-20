@@ -1,11 +1,22 @@
-.Content {
+.Vertical {
+    display: flex;
     flex-direction: column;
-    justify-items: center;
+}
+
+.Horizontal {
+    display: flex;
+    flex-direction: row;
 }
 
 @media (min-width: 700px){
-    .Content {
+    .Vertical {
+        display: flex;
         flex-direction: column;
         overflow: hidden;
+    }
+
+    .Horizontal {
+        display: flex;
+        flex-direction: row;
     }
 }
