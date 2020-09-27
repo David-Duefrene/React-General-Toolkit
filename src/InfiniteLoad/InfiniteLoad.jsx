@@ -9,29 +9,14 @@ import CSS from './InfiniteLoad.module.css';
  * @param {func} loadMore The function to load more items
  * @param {list} objects The list of objects that is being displayed
  * @param {bool} useButtons If a button should be displayed
- * @param {element} button The button to be displayed
+ * @param {element} customButton The button to be displayed
  * @param {bool} horizontal If the component should be displayed horizontally instead of vertically
  */
 const InfiniteLoad = (props) => {
     const {
-        objects, loadMore, useButtons, button, horizontal,
+        objects, loadMore, useButtons, customButton, horizontal,
     } = props;
     const style = horizontal ? CSS.Horizontal : CSS.Vertical;
-
-    // if (useButtons) {
-    //     return (
-    //         <div>
-    //             <ul className={style}>
-    //                 {objects}
-    //                 {
-    //                     button === null
-    //                         ? <button type='button' onClick={loadMore}>Load more</button>
-    //                         : React.cloneElement(button, { onClick: loadMore })
-    //                 }
-    //             </ul>
-    //         </div>
-    //     );
-    // }
 
     const handleScroll = () => {
         const lastLi = document.querySelector(`div > ul.${style}`);
@@ -66,21 +51,40 @@ const InfiniteLoad = (props) => {
         window.addEventListener('wheel', (e) => handleScroll(e));
     });
 
-    return (<div><ul className={style}>{objects}</ul></div>);
+    return (
+        <div>
+            <ul className={style}>
+                {objects}
+                {
+                    /** If we are using buttons the either give a default HTML button if
+                    * no custom button is provided
+                    * TODO: Make it not ugly
+                    * TODO: Make useButtons not needed if customer button is provided
+                    */
+                    // eslint-disable-next-line no-nested-ternary
+                    useButtons
+                        ? customButton === null
+                            ? <button type='button' onClick={loadMore}>Load more</button>
+                            : React.cloneElement(customButton, { onClick: loadMore })
+                        : null
+                }
+            </ul>
+        </div>
+    );
 };
 
 InfiniteLoad.propTypes = {
     loadMore: PropTypes.func.isRequired,
     objects: PropTypes.arrayOf(PropTypes.element).isRequired,
     useButtons: PropTypes.bool,
-    button: PropTypes.element,
+    customButton: PropTypes.element,
     horizontal: PropTypes.bool,
 };
 
 InfiniteLoad.defaultProps = {
     useButtons: false,
     horizontal: false,
-    button: null,
+    customButton: null,
 };
 
 export default InfiniteLoad;

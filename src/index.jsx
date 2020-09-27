@@ -15,6 +15,6 @@ const loadItems = (length = 3) => {
 };
 loadItems(3);
 
-const Index = () => <InfiniteLoad objects={items} loadMore={loadItems} horizontal />;
+const Index = () => <InfiniteLoad objects={items} loadMore={loadItems} horizontal useButtons />;
 
 ReactDOM.render(<Index />, document.getElementById('root'));

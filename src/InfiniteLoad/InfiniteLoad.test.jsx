@@ -65,7 +65,7 @@ describe('<InfiniteLoad /> with custom button', () => {
                 loadMore={mockLoadMore}
                 objects={objects}
                 useButtons
-                button={customButton}
+                customButton={customButton}
             />,
         );
     });
