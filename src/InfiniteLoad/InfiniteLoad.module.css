@@ -4,8 +4,24 @@
 }
 
 .Horizontal {
+    display: contents;
+}
+
+.ButtonHor {
+    right: 0;
+    height: 77%;
+    position: fixed;
+}
+
+.ButtonVert {
+    position: fixed;
+    bottom: 0;
+    right: 20%;
+    width: 60%;
+}
+
+.Element {
     display: flex;
-    flex-direction: row;
 }
 
 @media (min-width: 700px){
@@ -13,10 +29,5 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-    }
-
-    .Horizontal {
-        display: flex;
-        flex-direction: row;
     }
 }

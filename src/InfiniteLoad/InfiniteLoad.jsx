@@ -16,10 +16,11 @@ const InfiniteLoad = (props) => {
     const {
         objects, loadMore, useButtons, customButton, horizontal,
     } = props;
-    const style = horizontal ? CSS.Horizontal : CSS.Vertical;
+    const listStyle = horizontal ? CSS.Horizontal : CSS.Vertical;
+    const buttonStyle = horizontal ? CSS.ButtonHor : CSS.ButtonVert;
 
     const handleScroll = () => {
-        const lastLi = document.querySelector(`div > ul.${style}`);
+        const lastLi = document.querySelector(`div > ul.${listStyle}`);
         const lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
 
@@ -31,7 +32,7 @@ const InfiniteLoad = (props) => {
     const scrollHorizontally = () => {
         const eve = window.event;
         const delta = eve.deltaY || eve.detail || -eve.wheelDelta;
-        const lastLi = document.querySelector(`div > ul.${style}`);
+        const lastLi = document.querySelector(`div > ul.${listStyle}`);
         const lastLiOffset = lastLi.offsetLeft - lastLi.clientWidth;
         const pageOffset = window.pageXOffset - window.innerWidth;
 
@@ -52,23 +53,27 @@ const InfiniteLoad = (props) => {
     });
 
     return (
-        <div>
-            <ul className={style}>
+        <div className={horizontal ? CSS.Element : null}>
+            <ul className={listStyle}>
                 {objects}
-                {
-                    /** If we are using buttons the either give a default HTML button if
-                    * no custom button is provided
-                    * TODO: Make it not ugly
-                    * TODO: Make useButtons not needed if customer button is provided
-                    */
-                    // eslint-disable-next-line no-nested-ternary
-                    useButtons
-                        ? customButton === null
-                            ? <button type='button' onClick={loadMore}>Load more</button>
-                            : React.cloneElement(customButton, { onClick: loadMore })
-                        : null
-                }
             </ul>
+            {
+                /** If we are using buttons the either give a default HTML button if
+                * no custom button is provided
+                * TODO: Make it not ugly
+                * TODO: Make useButtons not needed if customer button is provided
+                */
+                // eslint-disable-next-line no-nested-ternary
+                useButtons
+                    ? customButton === null
+                        ? (
+                            <button className={buttonStyle} type='button' onClick={loadMore}>
+                                Load more
+                            </button>
+                        )
+                        : React.cloneElement(customButton, { onClick: loadMore })
+                    : null
+            }
         </div>
     );
 };
