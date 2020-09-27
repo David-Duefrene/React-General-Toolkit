@@ -1,6 +1,8 @@
 .Vertical {
     display: flex;
     flex-direction: column;
+    left: -1em;
+    position: relative;
 }
 
 .Horizontal {
