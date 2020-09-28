@@ -14,7 +14,8 @@ const loadItems = (length = 3) => {
     }
 };
 loadItems(3);
+const customButton = <h2>Custom Button</h2>;
 
-const Index = () => <InfiniteLoad objects={items} loadMore={loadItems} useButtons />;
+const Index = () => <InfiniteLoad objects={items} loadMore={loadItems} customButton={customButton} />;
 
 ReactDOM.render(<Index />, document.getElementById('root'));
