@@ -18,6 +18,7 @@ const InfiniteLoad = (props) => {
     } = props;
     const listStyle = horizontal ? CSS.Horizontal : CSS.Vertical;
     const buttonStyle = horizontal ? CSS.ButtonHor : CSS.ButtonVert;
+    let button = customButton !== null ? customButton : null;
 
     const handleScroll = () => {
         const lastLi = document.querySelector(`div > ul.${listStyle}`);
@@ -52,27 +53,22 @@ const InfiniteLoad = (props) => {
         window.addEventListener('wheel', (e) => handleScroll(e));
     });
 
+    if (useButtons && button === null) {
+        button = (
+            <button className={buttonStyle} type='button' onClick={loadMore}>
+                Load more
+            </button>
+        );
+    }
+
     return (
         <div className={horizontal ? CSS.Element : null}>
             <ul className={listStyle}>
                 {objects}
             </ul>
             {
-                /** If we are using buttons the either give a default HTML button if
-                * no custom button is provided
-                * TODO: Make it not ugly
-                * TODO: Make useButtons not needed if customer button is provided
-                */
-                // eslint-disable-next-line no-nested-ternary
-                useButtons
-                    ? customButton === null
-                        ? (
-                            <button className={buttonStyle} type='button' onClick={loadMore}>
-                                Load more
-                            </button>
-                        )
-                        : React.cloneElement(customButton, { onClick: loadMore })
-                    : null
+                customButton !== null
+                    ? React.cloneElement(customButton, { onClick: loadMore }) : button
             }
         </div>
     );
