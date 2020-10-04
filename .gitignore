@@ -8,6 +8,9 @@
 /.pnp
 .pnp.js
 
+# Documentation
+/doc
+
 # testing
 /coverage
 
