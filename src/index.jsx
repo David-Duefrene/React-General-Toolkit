@@ -1,21 +1,36 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import {
+    BrowserRouter as Router, NavLink, Route, Switch,
+} from 'react-router-dom';
 
-import InfiniteLoad from './InfiniteLoad/InfiniteLoad';
+import CSS from './index.module.css';
 
-let index = 0;
-const items = [];
+import CustomButton from './InfiniteLoad/Examples/CustomButton';
 
-const loadItems = (length = 3) => {
-    console.log('loaded items.');
-    while (index < length) {
-        index += 1;
-        items.push(<div style={{ padding: '20%', border: '1px red solid' }}>Hello</div>);
-    }
+const exampleComponents = [
+    {
+        path: '/InfiniteLoad/CustomButton',
+        component: CustomButton,
+    },
+];
+
+const Index = () => {
+    const links = [];
+    const routes = [];
+
+    exampleComponents.forEach((component) => {
+        routes.push(<Route exact path={component.path} component={component.component} />);
+        links.push(<NavLink className={CSS.LinkStyle} to={component.path} exact>{component.path}</NavLink>);
+    });
+
+    return (
+        <Router>
+            <ul style={{ display: 'flex' }}>{links}</ul>
+            <Switch>{routes}</Switch>
+        </Router>
+
+    );
 };
-loadItems(3);
-const customButton = <h2>Custom Button</h2>;
-
-const Index = () => <InfiniteLoad objects={items} loadMore={loadItems} customButton={customButton} />;
 
 ReactDOM.render(<Index />, document.getElementById('root'));
