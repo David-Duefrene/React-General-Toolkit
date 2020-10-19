@@ -21,7 +21,9 @@ const Index = () => {
 
     exampleComponents.forEach((component) => {
         routes.push(<Route exact path={component.path} component={component.component} />);
-        links.push(<NavLink className={CSS.LinkStyle} to={component.path} exact>{component.path}</NavLink>);
+        links.push((
+            <NavLink className={CSS.LinkStyle} to={component.path} exact>{component.path}</NavLink>
+        ));
     });
 
     return (

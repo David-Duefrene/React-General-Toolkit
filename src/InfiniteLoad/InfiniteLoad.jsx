@@ -85,8 +85,7 @@ const InfiniteLoad = (props) => {
          * @const
          * @type {float}
          */
-        // TODO do I need to check for all 3 possibilities?
-        const delta = eve.deltaY || eve.detail || -eve.wheelDelta;
+        const delta = eve.deltaY || -eve.wheelDelta;
         /**
          * Last item in the list
          * @const

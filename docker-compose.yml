@@ -8,7 +8,9 @@ services:
         volumes:
             - ./:/code
             - ./node_modules
+        ports:
+            - "3000:3000"
         environment:
             - NODE_ENV=development
         tty: true
-        command: npm test
+        command: npm start
