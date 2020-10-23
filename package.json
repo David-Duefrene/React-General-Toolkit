@@ -21,10 +21,12 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "better-docs": "^2.3.2",
+    "cypress": "^5.4.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-node": "^11.1.0",
@@ -40,9 +42,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rimraf dist && mkdir dist &&  babel ./src -d dist --copy-files",
+    "build": "rimraf dist && mkdir dist && babel ./src -d dist --copy-files",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "cypress": "cypress run",
     "docs": "jsdoc -c jsdoc.conf.json"
   },
   "eslintConfig": {

@@ -6,6 +6,7 @@
     },
     "extends": [
         "airbnb",
+        "plugin:cypress/recommended",
         "plugin:react/recommended"
     ],
     "parser": "babel-eslint",

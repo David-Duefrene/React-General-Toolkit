@@ -3,9 +3,10 @@ stages:
 
 test:
     stage: test
-    image: "node:14.8"
+    image: "cypress/included:3.2.0"
     script:
     - npm install --silent
     - npm i --silent react@16.13.1
     - npm i --silent react-dom@16.13.1
-    - npm test
+    - npm start & wait-on http://localhost:3000
+    - cypress run

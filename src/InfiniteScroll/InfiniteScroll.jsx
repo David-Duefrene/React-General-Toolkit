@@ -1,11 +1,11 @@
 /**
- * @module InfiniteLoad
- * @exports InfiniteLoad
+ * @module InfiniteScroll
+ * @exports InfiniteScroll
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import CSS from './InfiniteLoad.module.css';
+import CSS from './InfiniteScroll.module.css';
 
 /**
  * Displays a infinite scroll object
@@ -14,10 +14,9 @@ import CSS from './InfiniteLoad.module.css';
  * @requires prop-types
  * @author David Duefrene
  */
-const InfiniteLoad = (props) => {
-    const {
-        objects, loadMore, useButtons, customButton, horizontal,
-    } = props;
+const InfiniteScroll = (props) => {
+    const { loadMore, horizontal } = props;
+    const [objects, setObjects] = useState(loadMore());
     /**
      * If the list should be displayed horizontally or vertically
      * @const
@@ -25,24 +24,13 @@ const InfiniteLoad = (props) => {
      * @default [Vertical]
      */
     const listStyle = horizontal ? CSS.Horizontal : CSS.Vertical;
-    /**
-     * The Style of the button
-     * @const
-     * @type {CSS}
-     */
-    const buttonStyle = horizontal ? CSS.ButtonHor : CSS.ButtonVert;
-    /**
-     * The button itself
-     * @type {HTMLElement}
-     */
-    let button = customButton !== null ? customButton : null;
 
     /**
      * Handles the vertical scroll
      * @const
      * @type {function}
      */
-    const handleScroll = () => {
+    const scrollVertically = () => {
         /**
          * Last item in the list
          * @const
@@ -64,7 +52,7 @@ const InfiniteLoad = (props) => {
         const pageOffset = window.pageYOffset + window.innerHeight;
 
         if (pageOffset > lastLiOffset) {
-            loadMore();
+            setObjects(objects.concat(loadMore()));
         }
     };
 
@@ -107,7 +95,7 @@ const InfiniteLoad = (props) => {
         const pageOffset = window.pageXOffset - window.innerWidth;
 
         if (pageOffset > lastLiOffset) {
-            loadMore();
+            setObjects(objects.concat(loadMore()));
         }
 
         document.documentElement.scrollLeft += (delta * 40);
@@ -119,58 +107,29 @@ const InfiniteLoad = (props) => {
             window.addEventListener('wheel', scrollHorizontally, false);
             return;
         }
-        window.addEventListener('wheel', (e) => handleScroll(e));
+        window.addEventListener('scroll', (e) => scrollVertically(e));
     });
-
-    // If component is using buttons and a custom button has not been provided use HTML button
-    if (useButtons && button === null) {
-        button = (
-            <button className={buttonStyle} type='button' onClick={loadMore}>
-                Load more
-            </button>
-        );
-    }
 
     return (
         <div className={horizontal ? CSS.Element : null}>
-            <ul className={listStyle}>
+            <ul id='InfiniteLoad' className={listStyle}>
                 {objects}
             </ul>
-            {
-                customButton !== null
-                    ? React.cloneElement(customButton, { onClick: loadMore }) : button
-            }
         </div>
     );
 };
 
-InfiniteLoad.propTypes = {
+InfiniteScroll.propTypes = {
     /**
     * loadMore The function to load more items
     */
     loadMore: PropTypes.func.isRequired,
-    /**
-    * objects The list of objects that is being displayed
-    */
-    objects: PropTypes.arrayOf(PropTypes.element).isRequired,
-    /**
-    * useButtons If a button should be displayed
-    */
-    useButtons: PropTypes.bool,
-    /**
-    * customButton The button to be displayed
-    */
-    customButton: PropTypes.element,
     /**
     * horizontal If the component should be displayed horizontally instead of vertically
     */
     horizontal: PropTypes.bool,
 };
 
-InfiniteLoad.defaultProps = {
-    useButtons: false,
-    horizontal: false,
-    customButton: null,
-};
+InfiniteScroll.defaultProps = { horizontal: false };
 
-export default InfiniteLoad;
+export default InfiniteScroll;
